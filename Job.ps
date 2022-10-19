@@ -1,0 +1,85 @@
+#### Set up variables  
+
+   
+
+$SitesToCheck = @('https://consanto.sharepoint.com/sites/Test1Project','https://consanto.sharepoint.com/sites/Test2Project') 
+
+  
+
+foreach($item in $SitesToCheck) { 
+
+  Connect-PnPOnline -Url $item -ClientId "basgasdgasgasg" -ClientSecret "adsgasdgasdgasdg"  
+
+  Write-output "===================================================================" 
+
+  Write-output "Checking Site: " $item `n`n 
+
+  Write-output "Number of folders in Project Document Library" `n 
+
+  $ProjectDocuments = $item + "/ProjectDocuments" 
+
+  Get-PnPFolder $ProjectDocuments 
+
+  Write-output `n 
+
+  Write-output "Folders in Project Document Library:" `n 
+
+  Get-PnPFolderItem -FolderSiteRelativeUrl "/ProjectDocuments"  
+
+  Write-output `n 
+
+  #$ProjectDocumentsLayer2 = $ProjectDocuments + "/" + $item.Name 
+
+   
+
+  $folder = "/ProjectDocuments" 
+
+  $folderColl=Get-PnPFolderItem -FolderSiteRelativeUrl $folder -ItemType Folder 
+
+  
+
+  foreach($folderItem in $folderColl)    
+
+  
+
+    {                        
+
+  
+
+       $newFolderURL= $folderUrl+"/"+$folderItem.Name     
+
+  
+
+        $newFolderURL= $folderUrl+"/"+$folderItem.Name    
+
+  
+
+       Write-host -ForegroundColor Green "Checking Folder: " $newFolderURL " inside of: " + $ProjectDocuments `n 
+
+  
+
+       $FullPathLayer2 = "/ProjectDocuments" + $newFolderURL 
+
+  
+
+       Get-PnPFolderItem -FolderSiteRelativeUrl $FullPathLayer2 
+
+       Write-output `n 
+
+  
+
+  
+
+    }      
+
+  
+
+  
+
+  Write-output `n `n "Moving on to next Site.."  
+
+  Write-output "===================================================================" 
+
+} 
+
+  
